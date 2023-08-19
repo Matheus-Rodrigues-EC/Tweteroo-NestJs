@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsUrl } from 'class-validator'
+import { IsString, IsNotEmpty } from 'class-validator'
 
 export class createTweetDTO {
     @IsString()
@@ -7,6 +7,5 @@ export class createTweetDTO {
 
     @IsString()
     @IsNotEmpty()
-    @IsUrl()
     tweet: string;
 }
