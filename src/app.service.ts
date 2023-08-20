@@ -30,12 +30,29 @@ export class AppService {
     return this.tweets.push(tweet);
   }
 
-  getTweets(){
+  getTweets(page?: number){
+    if((page < 1)){
+      throw new HttpException('Informe uma página válida!', HttpStatus.BAD_REQUEST);
+    }else{
+      if(page >= 1){
+        const tweets = this.tweets.slice((-15 * page), (-15* (page - 1))).reverse();
+        console.log((-15* (page - 1)))
+        console.log((-15 * page))
+        return tweets;
+      }
+    }
     if(this.tweets.length >= 15){
-      const tweets = this.tweets.slice(-15);
+      const tweets = this.tweets.slice(-15).reverse();
       return tweets;
     }else{
       return this.tweets;
     }
+  }
+
+  getTweetsByUser(username: string){
+    const tweetsByUser = [];
+    this.tweets.find((user) => {if(user.username === username) tweetsByUser.push(user)});
+    if(!tweetsByUser) return [];
+    return tweetsByUser
   }
 }
